@@ -79,31 +79,33 @@ year = new_data['Year']
 male = new_data['Male']
 female = new_data['Female']
 
-slope_m, intercept_m = np.polyfit(year, male, deg=1)
-print('Males:\n{:.4f} x {}'.format(slope_m, round(intercept_m)))
+#slope_m, intercept_m = np.polyfit(year, male, deg=1)
+#print('Males:\n{:.4f} x {}'.format(slope_m, round(intercept_m)))
 
-slope_f, intercept_f = np.polyfit(year, female, deg=1)
-print('Female:\n{:.4f} x {}'.format(slope_f, round(intercept_f)))
+#slope_f, intercept_f = np.polyfit(year, female, deg=1)
+#print('Female:\n{:.4f} x {}'.format(slope_f, round(intercept_f)))
 
+#pl.plot(year, male, '.g')
+#pl.plot(year, slope_m*year + intercept_m)
+#pl.show()
+
+#pl.plot(year, female, '.r')
+#pl.plot(year, slope_f*year + intercept_f)
+#pl.show()
+
+pf = np.polyfit(year, male, deg=1)
+f = np.poly1d(pf)
+print('Male:{}'.format(f))
 pl.plot(year, male, '.g')
-pl.plot(year, slope_m*year + intercept_m)
+pl.plot(year, f(year))
 pl.show()
 
+pf = np.polyfit(year, female, deg=1)
+f = np.poly1d(pf)
+print('Female:{}'.format(f))
 pl.plot(year, female, '.r')
-pl.plot(year, slope_f*year + intercept_f)
+pl.plot(year, f(year))
 pl.show()
-
-#pf = np.polyfit(year, male, deg=1)
-#f = np.poly1d(pf)
-#pl.plot(new_data['Year'], new_data['Male'], '.g')
-#pl.plot(new_data['Year'], f(new_data['Year']))
-#pl.show()
-
-#pf = np.polyfit(new_data['Year'], new_data['Female'], deg=1)
-#f = np.poly1d(pf)
-#pl.plot(new_data['Year'], new_data['Female'], '.r')
-#pl.plot(new_data['Year'], f(new_data['Year']))
-#pl.show()
 
 #print('Comment: {}'.format('the values of the fits verify my conclusions as they show an increase number of calls detected on each night against the year for the males and females over time'))
 
