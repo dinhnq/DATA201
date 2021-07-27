@@ -64,10 +64,30 @@ pyplot.axis([-5,5,-5,5])
 pyplot.show()
 
 # https://machinelearningcoban.com/math/
-x_4_norm = numpy.array([3,4])
-norm = numpy.linalg.norm(x_4_norm)
+# vectors have a length + a direction
+# Length (using a norm usch as Euclidean length): ||x|| = sqrt(x . x)
+# Inner product: x . y = ||x|| * ||y|| * cos(theta)
+# Inner product has 2 steps:
+#       1. multiple 2 vectors
+#       2. give back a scalar
+# scalar (dai luong vo huong trong dai so tuyen tinh): dung de dinh nghia 1 khong gian vector
+# Co do lon <=> 1 scalar
+# Co do lon + co huong <=> 1 vector
+
+# vector: v(x,y)
+# x: one scalar
+# y: one scalar
+# v: one vector
+
+# example:
+# 5: one scalar
+# tap hop (5,6,7) or mang [5,6,7]: one vector
+
+x_y_4_norm = numpy.array([3,4])
+vector_len = numpy.linalg.norm(x_y_4_norm)
 
 # vector multiplication
+# 2 vectors
 x = numpy.array([1,2])
 y = numpy.array([2,2])
 
@@ -76,7 +96,7 @@ y = numpy.array([2,2])
 # For 2-D vectors, it is the equivalent to matrix multiplication.
 # For 1-D arrays, it is the inner product of the vectors.
 product = x*y
-dot_product = numpy.dot(x,y)
+inner_product = numpy.dot(x,y)
 
 theta = numpy.arctan2(y[0],y[1])-numpy.arctan2(x[0],x[1])
 same_dot_product = numpy.linalg.norm(x) * numpy.linalg.norm(y) * numpy.cos(theta)
@@ -94,17 +114,42 @@ for i in range(npoints):
     pyplot.plot(x[1], y, 'r.')
 pyplot.show()
 
-# Scikit-Learn: machine learning library
+# Scikit-Learn: machine learning library (ML algorithms in common)
+# Tensorflow or Pytorch: deep learning libraries
+
+# 4 steps <=> 4 algorithms:
+# 1. decide if you're doing classification/regression
+# 2. select types of model
+# 3. assemble your data into a matrix
+# 4. standardize it
+# => 4 steps                                    <=> sklearn.preprocessing.StandardScaler()
+
+# 1 step <=> 1 algorithm
+# separate into training, testing, validation   <=> sklearn.model_selection.train_test_split()
+
+# 1 step <=> 1 algorithm
+# select a loss function                        <=> sklearn.metrics
+
+# 1 step <=> 1 algorithm
+# train the algorithm, using validation set to work out when to stop    <=> fit()
+
+# 1 step <=> 1 algorithm
+# test the algorithm with appropriate metrics, decide whether to keep   <=> predict()
+
 from sklearn import linear_model
 
 x = numpy.array([[0,0],[1,1],[2,2]])
 y = numpy.array([0,1,2])
+
+# step 1: choose model
 reg = linear_model.LinearRegression()
+# step 2: fit it = train the algorithm + using validation set to work out when to stop
 reg.fit(x, y)
 
 coef = reg.coef_
 x_hat = numpy.array([[0.5,0.5]])
 
+# step 3: predit it = test the algorithm + decide whether to keep
 y_hat = reg.predict(x_hat)
 
 # preprocessing data
